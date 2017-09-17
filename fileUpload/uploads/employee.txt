@@ -1,0 +1,17 @@
+SqlCommand cmd = new SqlCommand("spAddEmployee", con);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Name", TextBox1.Text);
+                cmd.Parameters.AddWithValue("@Gender", DropDownList1.Text);
+                cmd.Parameters.AddWithValue("@Salary", TextBox3.Text);
+
+                SqlParameter outputParameter = new SqlParameter();
+                outputParameter.ParameterName = "@EmployeeId";
+                outputParameter.SqlDbType = System.Data.SqlDbType.Int;
+                outputParameter.Direction = System.Data.ParameterDirection.Output;
+                cmd.Parameters.Add(outputParameter);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+
+                String id = outputParameter.Value.ToString();
+                Label1.Text = "employee inserted with id of " + id;
